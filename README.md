@@ -7,6 +7,11 @@ Expense Tracker (MERN Stack) A user-friendly app to track income and expenses. B
 > Full stack expense tracker
 
 ## Usage
+
+```
+change config.env file in config folder
+```
+
 ```
  npm install
  cd client npm install
