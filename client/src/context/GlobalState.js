@@ -2,9 +2,8 @@ import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
 import axios from 'axios';
 
-// ✅ Ensure API URL is correctly loaded
-const API_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
-console.log("✅ Backend URL Loaded:", API_URL);  // Debugging
+// ✅ Production backend URL
+const API_URL = "https://expense-tracker-mern-stack-4qpy.onrender.com";
 
 // Initial state
 const initialState = {
