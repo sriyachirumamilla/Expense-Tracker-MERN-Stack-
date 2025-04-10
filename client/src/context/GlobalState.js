@@ -2,12 +2,16 @@ import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
 import axios from 'axios';
 
+// ✅ Ensure API URL is correctly loaded
+const API_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+console.log("✅ Backend URL Loaded:", API_URL);  // Debugging
+
 // Initial state
 const initialState = {
   transactions: [],
   error: null,
   loading: true
-}
+};
 
 // Create context
 export const GlobalContext = createContext(initialState);
@@ -19,66 +23,70 @@ export const GlobalProvider = ({ children }) => {
   // Actions
   async function getTransactions() {
     try {
-      const res = await axios.get('/api/v1/transactions');
+      console.log("🔄 Fetching transactions...");
+      const res = await axios.get(`${API_URL}/api/v1/transactions`);
 
       dispatch({
         type: 'GET_TRANSACTIONS',
         payload: res.data.data
       });
     } catch (err) {
+      console.error("❌ Error Fetching Transactions:", err);
       dispatch({
         type: 'TRANSACTION_ERROR',
-        payload: err.response.data.error
+        payload: err.response?.data?.error || "Server Error"
       });
     }
   }
 
   async function deleteTransaction(id) {
     try {
-      await axios.delete(`/api/v1/transactions/${id}`);
+      console.log(`🗑 Deleting transaction ${id}...`);
+      await axios.delete(`${API_URL}/api/v1/transactions/${id}`);
 
       dispatch({
         type: 'DELETE_TRANSACTION',
         payload: id
       });
     } catch (err) {
+      console.error("❌ Error Deleting Transaction:", err);
       dispatch({
         type: 'TRANSACTION_ERROR',
-        payload: err.response.data.error
+        payload: err.response?.data?.error || "Server Error"
       });
     }
   }
 
   async function addTransaction(transaction) {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-
     try {
-      const res = await axios.post('/api/v1/transactions', transaction, config);
+      console.log("➕ Adding new transaction...");
+      const res = await axios.post(`${API_URL}/api/v1/transactions`, transaction, {
+        headers: { 'Content-Type': 'application/json' }
+      });
 
       dispatch({
         type: 'ADD_TRANSACTION',
         payload: res.data.data
       });
     } catch (err) {
+      console.error("❌ Error Adding Transaction:", err);
       dispatch({
         type: 'TRANSACTION_ERROR',
-        payload: err.response.data.error
+        payload: err.response?.data?.error || "Server Error"
       });
     }
   }
 
-  return (<GlobalContext.Provider value={{
-    transactions: state.transactions,
-    error: state.error,
-    loading: state.loading,
-    getTransactions,
-    deleteTransaction,
-    addTransaction
-  }}>
-    {children}
-  </GlobalContext.Provider>);
-}
+  return (
+    <GlobalContext.Provider value={{
+      transactions: state.transactions,
+      error: state.error,
+      loading: state.loading,
+      getTransactions,
+      deleteTransaction,
+      addTransaction
+    }}>
+      {children}
+    </GlobalContext.Provider>
+  );
+};

@@ -1,35 +1,20 @@
-<<<<<<< HEAD
+# Expense Tracker (MERN Stack)
 
-# Expense-Tracker-MERN-Stack-
-
-# Expense Tracker (MERN Stack) A user-friendly app to track income and expenses. Built with React.js, Node.js, Express.js, and MongoDB, it supports CRUD operations, real-time balance updates, and responsive UI. Features include persistent storage, seamless experience, and easy setup. Tools: Mongoose, dotenv, colors, and morgan.
-
-# Expense Tracker (MERN)
+A user-friendly app to track income and expenses. Built with React.js, Node.js, Express.js, and MongoDB, it supports CRUD operations, real-time balance updates, and responsive UI. Features include persistent storage, seamless experience, and easy setup. Tools: Mongoose, dotenv, colors, and morgan.
 
 > Full stack expense tracker
 
 ## Usage
 
+### Change Configuration
+
+Change the `config.env` file in the `config` folder.
+
+### Install Dependencies
+
+```bash
+npm install
+cd client
+npm install
+cd ..
 ```
- npm install
- cd client npm install
- cd ..
-
- #run front and backend
- npm run dev
-
- # Backend only
- npm run server
-
- # Frontend only
- npm run client
-
- # Build client
- cd client
- npm run build
-
- # Prod
- npm start
-```
-
-> > > > > > > e8d19ea (Create README.md)
